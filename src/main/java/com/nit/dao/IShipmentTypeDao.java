@@ -11,5 +11,6 @@ public interface IShipmentTypeDao {
 	void updateShipmentType(ShipmentType ob);
 	ShipmentType getOneShipmentType(Integer id);
 	public List<Object[]> getShipmentModeCount();
+	public List<Object[]> getShipmentIdAndCode();
 
 }

@@ -11,19 +11,19 @@ import com.nit.model.ShipmentType;
 
 @Repository
 public class ShipmentTypeDaoImpl implements IShipmentTypeDao {
-	
+
 	@Autowired
 	private HibernateTemplate ht;
 
 	@Override
 	public Integer saveShipmentType(ShipmentType ob) {
-		
+
 		return (Integer) ht.save(ob);
 	}
 
 	@Override
 	public List<ShipmentType> getAllShipmentTypes() {
-		
+
 		return ht.loadAll(ShipmentType.class);
 	}
 
@@ -32,27 +32,35 @@ public class ShipmentTypeDaoImpl implements IShipmentTypeDao {
 		ShipmentType s=new ShipmentType();
 		s.setShipId(id);
 		ht.delete(s);
-		
+
 	}
 
 	@Override
 	public void updateShipmentType(ShipmentType ob) {
 		ht.update(ob);
-		
+
 	}
 
 	@Override
 	public ShipmentType getOneShipmentType(Integer id) {
-		
+
 		return ht.get(ShipmentType.class, id);
 	}
-
+	@SuppressWarnings({ "unchecked", "deprecation" })
 	@Override
 	public List<Object[]> getShipmentModeCount() {
 		String hql="select shipMode,count(shipMode)  from in.nit.model.ShipmentType"
-				    +"group by shipMode";
-		
+				+"group by shipMode";
+
 		return (List<Object[]>)ht.find(hql);
+	}
+
+
+	@SuppressWarnings({ "unchecked", "deprecation" })
+	@Override
+	public List<Object[]> getShipmentIdAndCode() {
+		String hql="select shipId,shipCode from "+ShipmentType.class.getName()+" where  enbShip='YES' ";
+		return (List<Object[]>) ht.find(hql);
 	}
 
 }
